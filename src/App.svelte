@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Route } from "tinro";
-  import Login from './lib/Login.svelte'
-import Register from "./lib/register.svelte";
+  import Editor from "./lib/editor.svelte";
+  import Login from "./lib/Login.svelte";
+  import Register from "./lib/register.svelte";
 </script>
 
 <Route path="/">
@@ -339,3 +340,4 @@ import Register from "./lib/register.svelte";
 </Route>
 <Route path="/login"><Login /></Route>
 <Route path="/register"><Register /></Route>
+<Route path="/editor"><Editor /></Route>
