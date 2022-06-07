@@ -18,7 +18,13 @@ class AsyncClient implements AsyncClientType {
   }
 
   async post<T, R>(endpoint: string, content: R): Promise<T> {
-    const res = await fetch(this.baseUrl+endpoint, { method: 'POST', body: JSON.stringify(content) })
+    const res = await fetch(this.baseUrl+endpoint, {
+      method: 'POST',
+      body: JSON.stringify(content),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     const data = await res.json()
 
     return data as T

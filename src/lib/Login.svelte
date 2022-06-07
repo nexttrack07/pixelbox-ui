@@ -1,19 +1,26 @@
 <script lang="ts">
-  import {router} from "tinro"
+  import { onMount } from "svelte";
+
+  import { router } from "tinro";
   import { authService } from "../services/auth.service";
-  import { authToken } from '../stores/auth.store'
+  import { authToken } from "../stores/auth.store";
 
   let email = "",
     password = "";
+
+  onMount(() => {
+    if ($authToken) {
+      router.goto("/editor");
+    }
+  });
 
   const handleLogin = async (e: SubmitEvent) => {
     e.preventDefault();
 
     try {
       $authToken = await authService.login(email, password);
+      router.goto("/editor");
     } catch (error) {
-      $authToken = "Hello";
-      router.goto("/editor")
       console.log("Error: ", error);
     }
   };
