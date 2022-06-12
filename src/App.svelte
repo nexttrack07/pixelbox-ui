@@ -1,8 +1,19 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   import { Route } from "tinro";
   import Editor from "./lib/editor.svelte";
   import Login from "./lib/Login.svelte";
   import Register from "./lib/register.svelte";
+  import { getToken } from "./services/base";
+  import { authToken } from "./stores/auth.store";
+
+  onMount(() => {
+    const storedToken = getToken();
+    if (storedToken) {
+      $authToken = storedToken;
+    }
+  });
 </script>
 
 <Route path="/">

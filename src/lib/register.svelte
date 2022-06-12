@@ -1,12 +1,19 @@
 <script lang="ts">
+import { router } from 'tinro';
+
   import { authService } from '../services/auth.service'
 
   let email = "", password = "", confirmPassword = ""
 
-  const handleRegister = (e: SubmitEvent) => {
+  const handleRegister = async (e: SubmitEvent) => {
     e.preventDefault()
 
-    authService.register(email, password)
+    try {
+      await authService.register(email, password)
+      router.goto('/login')
+    } catch (err) {
+      console.error(`Error registering user...${err}`)
+    }
   }
 </script>
 

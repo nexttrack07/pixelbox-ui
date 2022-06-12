@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { setToken } from "../services/base";
+
   import { onMount } from "svelte";
 
   import { router } from "tinro";
@@ -8,9 +10,14 @@
   let email = "",
     password = "";
 
-  onMount(() => {
+  onMount(async () => {
     if ($authToken) {
-      router.goto("/editor");
+      try {
+        await authService.getUser($authToken);
+        router.goto("/editor");
+      } catch (err) {
+        console.info("User not logged in.");
+      }
     }
   });
 
@@ -19,6 +26,7 @@
 
     try {
       $authToken = await authService.login(email, password);
+      setToken($authToken);
       router.goto("/editor");
     } catch (error) {
       console.log("Error: ", error);
