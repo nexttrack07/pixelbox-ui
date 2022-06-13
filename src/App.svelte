@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-
   import { Route } from "tinro";
+  import '@pqina/pintura/pintura.css';
   import Editor from "./lib/editor.svelte";
   import Login from "./lib/Login.svelte";
   import Register from "./lib/register.svelte";

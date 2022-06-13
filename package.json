@@ -24,6 +24,9 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "@pqina/pintura": "^8.30.0",
+    "@pqina/svelte-pintura": "^8.30.0",
+    "axios": "^0.27.2",
+    "cropperjs": "^1.5.12"
   }
 }

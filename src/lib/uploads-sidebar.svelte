@@ -2,12 +2,12 @@
   import { uploadService } from "../services/uploads.service";
   import PhotoEditor from "./photo-editor.svelte";
 
-  let url = ''
+  let photo: any = null
   let fileInput: HTMLInputElement;
   let photosPromise = uploadService.getPhotos();
 
-  const handleEditPhoto = (photo: { url: string }) => {
-    url = photo.url
+  const handleEditPhoto = (img: any) => {
+    photo = img
   }
   const handleUploadPhoto = async (e: Event) => {
     const image = (e.target as HTMLInputElement).files[0];
@@ -68,7 +68,7 @@
   </div>
 {/await}
 
-<PhotoEditor on:close={() => { url = '' }} {url} />
+<PhotoEditor on:close={() => { photo = null }} {photo} />
 
 <style lang="postcss">
   #image-container:hover > #image-buttons {
