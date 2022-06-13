@@ -1,6 +1,4 @@
 <script lang="ts">
-  // import { setToken } from "../services/base";
-
   import { onMount } from "svelte";
   import { router } from "tinro";
 
@@ -15,27 +13,19 @@
 
   let selectedTab = "uploads";
 
-  $: console.log("selectedTab: ", selectedTab);
-
   const handleTabChange = (tab: string) => {
     selectedTab = tab;
   };
-
-  // const handleLogOut = () => {
-  //   $authToken = "";
-  //   setToken("");
-  //   router.goto("/login");
-  // };
 </script>
 
 <div class="h-screen w-screen bg-neutral-200 flex flex-col">
   <nav
-    class="h-[75px] bg-gradient-to-r from-stone-700 to-neutral-700 shadow border-b border-stone-500"
+    class="h-[75px] bg-slate-800 shadow border-b border-slate-500"
   />
   <section class="flex-1 flex">
     <nav
       id="side-nav"
-      class="w-[75px] bg-stone-700 border-r border-gray-100 flex flex-col items-center"
+      class="w-[75px] bg-slate-900 border-r border-slate-500 flex flex-col items-center"
     >
       <button
         class:selected={selectedTab === "graphics"}
@@ -152,7 +142,7 @@
         </svg>
       </button>
     </nav>
-    <aside class="w-[350px] bg-neutral-100 border-r border-gray-300">
+    <aside class="w-[350px] bg-slate-800 border-r border-gray-300">
       {#if selectedTab === "uploads"}
         <UploadsSidebar />
       {/if}
@@ -171,7 +161,7 @@
 
 <style lang="postcss">
   #side-nav > button {
-    @apply text-stone-400 py-6 border-b border-stone-500 w-full;
+    @apply text-blue-200 py-6 border-b border-slate-500 w-full;
   }
 
   #side-nav > button > svg {
@@ -179,6 +169,6 @@
   }
 
   #side-nav > .selected {
-    @apply text-stone-100 shadow rounded;
+    @apply bg-slate-800;
   }
 </style>

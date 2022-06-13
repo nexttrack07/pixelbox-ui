@@ -1,8 +1,14 @@
 <script lang="ts">
   import { uploadService } from "../services/uploads.service";
+  import PhotoEditor from "./photo-editor.svelte";
 
+  let url = ''
   let fileInput: HTMLInputElement;
   let photosPromise = uploadService.getPhotos();
+
+  const handleEditPhoto = (photo: { url: string }) => {
+    url = photo.url
+  }
   const handleUploadPhoto = async (e: Event) => {
     const image = (e.target as HTMLInputElement).files[0];
     const formData = new FormData();
@@ -25,7 +31,7 @@
 />
 <button
   on:click={() => fileInput.click()}
-  class="block w-9/12 rounded shadow bg-stone-600 text-zinc-50 text-md mx-auto my-6 p-4"
+  class="block w-9/12 rounded shadow bg-blue-600 text-blue-200 text-md mx-auto my-6 p-4"
 >
   Upload photo
 </button>
@@ -43,14 +49,26 @@
           src={photo.thumbnail}
           alt={photo.name}
         />
-        <div id="image-buttons" class="hidden absolute p-4 top-0 bottom-0 left-0 right-0 items-center justify-center">
-          <button class="bg-stone-600 text-zinc-50 text-sm px-2 py-1 w-full rounded">Insert</button>
-          <button class="bg-amber-800 text-zinc-50 text-sm px-2 py-1 w-full rounded">Edit</button>
+        <div
+          id="image-buttons"
+          class="hidden absolute p-4 top-0 bottom-0 left-0 right-0 items-center justify-center"
+        >
+          <button
+            class="bg-blue-600 text-zinc-50 text-sm px-2 py-1 w-full rounded"
+            >Insert</button
+          >
+          <button
+            on:click={() => handleEditPhoto(photo)}
+            class="bg-sky-800 text-zinc-50 text-sm px-2 py-1 w-full rounded"
+            >Edit</button
+          >
         </div>
       </div>
     {/each}
   </div>
 {/await}
+
+<PhotoEditor on:close={() => { url = '' }} {url} />
 
 <style lang="postcss">
   #image-container:hover > #image-buttons {
