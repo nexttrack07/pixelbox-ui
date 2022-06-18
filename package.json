@@ -12,6 +12,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "@tsconfig/svelte": "^2.0.1",
+    "@types/fabric": "^4.5.8",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "svelte": "^3.44.0",
@@ -27,6 +28,7 @@
     "@pqina/pintura": "^8.30.0",
     "@pqina/svelte-pintura": "^8.30.0",
     "axios": "^0.27.2",
-    "cropperjs": "^1.5.12"
+    "cropperjs": "^1.5.12",
+    "fabric": "^5.2.1"
   }
 }

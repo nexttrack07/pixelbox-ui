@@ -3,6 +3,8 @@
   import { router } from "tinro";
 
   import { authToken } from "../stores/auth.store";
+import Canvas from "./canvas.svelte";
+import TextSidebar from "./text-sidebar.svelte";
   import UploadsSidebar from "./uploads-sidebar.svelte";
 
   onMount(() => {
@@ -145,15 +147,14 @@
     <aside class="w-[350px] bg-slate-800 border-r border-gray-300">
       {#if selectedTab === "uploads"}
         <UploadsSidebar />
+      {:else if selectedTab === "text"}
+        <TextSidebar />
       {/if}
     </aside>
     <main class="flex-1 flex flex-col">
       <section class="h-[65px] bg-neutral-100 border-b border-gray-300" />
       <section class="flex-1 flex items-center justify-center">
-        <div
-          id="canvas"
-          class="w-[700px] h-[550px] bg-neutral-50 shadow rounded-sm"
-        />
+        <Canvas />
       </section>
     </main>
   </section>
