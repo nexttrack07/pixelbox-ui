@@ -3,9 +3,10 @@
   import { router } from "tinro";
 
   import { authToken } from "../stores/auth.store";
-import Canvas from "./canvas.svelte";
-import TextSidebar from "./text-sidebar.svelte";
+  import Canvas from "./canvas.svelte";
+  import TextSidebar from "./text-sidebar.svelte";
   import UploadsSidebar from "./uploads-sidebar.svelte";
+  import Toolbar from "./toolbar.svelte";
 
   onMount(() => {
     if (!$authToken) {
@@ -21,9 +22,7 @@ import TextSidebar from "./text-sidebar.svelte";
 </script>
 
 <div class="h-screen w-screen bg-neutral-200 flex flex-col">
-  <nav
-    class="h-[75px] bg-slate-800 shadow border-b border-slate-500"
-  />
+  <nav class="h-[75px] bg-slate-800 shadow border-b border-slate-500" />
   <section class="flex-1 flex">
     <nav
       id="side-nav"
@@ -152,7 +151,9 @@ import TextSidebar from "./text-sidebar.svelte";
       {/if}
     </aside>
     <main class="flex-1 flex flex-col">
-      <section class="h-[65px] bg-neutral-100 border-b border-gray-300" />
+      <section class="h-[65px] bg-neutral-100 border-b border-gray-300 p-4">
+        <Toolbar />
+      </section>
       <section class="flex-1 flex items-center justify-center">
         <Canvas />
       </section>
