@@ -1,14 +1,21 @@
-<script lang='ts'>
+<script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   let open = false;
-  let fonts = ["Helvetica", "Fira Mono", "Jet Brains", "Comic Sans", "Arial"];
-  let value = fonts[0];
+  export let options: any[];
+  export let value: any;
+
+  const dispatch = createEventDispatcher();
 </script>
+
 <div class="relative inline-block">
   <button on:click={() => (open = !open)}>
     <span
-      class="inline-flex items-center justify-between border border-gray-400 rounded p-1"
+      class="min-w-[200px] inline-flex space-x-4 items-center justify-between border border-gray-400 rounded p-2 pl-3 pr-1"
     >
-      {value}
+      <slot {value} name="value">
+        {value}
+      </slot>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4 block ml-4"
@@ -27,18 +34,20 @@
   </button>
   {#if open}
     <div
-      class="rounded absolute bg-gray-50 border border-gray-400 mt-1 whitespace-nowrap z-10"
+      class="min-w-[200px] rounded absolute max-h-[300px] overflow-auto bg-gray-50 border border-gray-400 mt-1 whitespace-nowrap z-10"
     >
-      {#each fonts as font}
+      {#each options as option}
         <div
-          class="p-1 border-b border-gray-400 last-of-type:border-0 cursor-pointer hover:bg-slate-200"
-          style="font-family: {font}"
+          class="py-3 px-6 border-b border-gray-400 last-of-type:border-0 cursor-pointer hover:bg-slate-200"
           on:click={() => {
-            value = font;
+            value = option;
             open = false;
+            dispatch("change", option);
           }}
         >
-          {font}
+          <slot name="option" {option}>
+            {option}
+          </slot>
         </div>
       {/each}
     </div>

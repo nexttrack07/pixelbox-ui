@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { canvasStore } from "../stores/canvas.store";
+  import { initCanvas } from "../stores/canvas.store";
   import { onMount } from "svelte";
 
   onMount(() => {
-    canvasStore.init("canvas", { width: 700, height: 550 });
+    initCanvas("canvas", { width: 700, height: 550, preserveObjectStacking: true });
   });
 </script>
 

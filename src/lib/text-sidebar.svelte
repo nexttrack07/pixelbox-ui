@@ -1,25 +1,24 @@
 <script lang="ts">
-  import { canvasStore } from "../stores/canvas.store";
+  import { addText } from "../stores/canvas.store";
 
-  const { addText } = canvasStore;
 </script>
 
 <div id="text-sidebar" class="flex flex-col">
   <button
     class="text-3xl"
-    on:click={() => addText("Add a heading", { fontSize: 45 })}
+    on:click={() => addText("Add a heading", { fontSize: 45, fontFamily: 'Roboto' })}
   >
     Add a heading
   </button>
   <button
     class="text-xl"
-    on:click={() => addText("Add a subheading", { fontSize: 30 })}
+    on:click={() => addText("Add a subheading", { fontSize: 30, fontFamily: 'Roboto'  })}
   >
     Add a subheading
   </button>
   <button
     class=""
-    on:click={() => addText("Add a paragraph", { fontSize: 20 })}
+    on:click={() => addText("Add a paragraph", { fontSize: 20, fontFamily: 'Roboto'  })}
   >
     Add a paragraph
   </button>

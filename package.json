@@ -27,6 +27,7 @@
   "dependencies": {
     "@pqina/pintura": "^8.30.0",
     "@pqina/svelte-pintura": "^8.30.0",
+    "@svelte-web-fonts/google": "^1.0.4",
     "axios": "^0.27.2",
     "cropperjs": "^1.5.12",
     "fabric": "^5.2.1"
