@@ -1,26 +1,75 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import { getEditorDefaults } from "@pqina/pintura";
-  import { PinturaEditor } from "@pqina/svelte-pintura";
+  import { createEventDispatcher, onMount } from "svelte";
   import Modal from "../shared/modal.svelte";
+  import Cropper from "cropperjs";
 
   export let photo: any;
+  let image: HTMLImageElement = null,
+    result: HTMLDivElement;
+  let cropReady = false;
+  let cropper: Cropper = null;
+
+  $: if (image) {
+    cropper = new Cropper(image, {
+      aspectRatio: 1,
+      viewMode: 1,
+      modal: false,
+      background: true,
+      highlight: true,
+      ready: () => {
+        cropReady = true;
+      },
+    });
+  }
+
+  function handleCropClick() {
+    if (!cropReady) return;
+
+    const croppedCanvas = cropper.getCroppedCanvas();
+    const roundedCanvas = getRoundedCanvas(croppedCanvas);
+    const roundedImage = document.createElement("img");
+    roundedImage.src = roundedCanvas.toDataURL();
+    result.innerHTML = "";
+    result.appendChild(roundedImage);
+  }
+
+  function getRoundedCanvas(sourceCanvas: HTMLCanvasElement) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    const width = sourceCanvas.width;
+    const height = sourceCanvas.height;
+
+    canvas.width = width;
+    canvas.height = height;
+    context.drawImage(sourceCanvas, 0, 0, width, height);
+    context.beginPath();
+    context.arc(
+      width / 2,
+      height / 2,
+      Math.min(width, height) / 2,
+      0,
+      2 * Math.PI,
+      true
+    );
+    context.fill();
+
+    return canvas;
+  }
+
   const dispatch = createEventDispatcher();
 </script>
 
 {#if photo}
-  <Modal
-    title={photo.name}
-    open={!!photo}
-    on:close={() => dispatch("close")}
-  >
+  <Modal title={photo.name} open={!!photo} on:close={() => dispatch("close")}>
     <svelte:fragment slot="body">
       <div class="w-[900px] h-[550px] flex">
-        <div class="flex-1 flex flex-col">
-          <PinturaEditor
-            {...getEditorDefaults()}
+        <div bind:this={result} class="flex-1 flex flex-col">
+          <img
+            bind:this={image}
+            alt="some random pic"
+            id="image"
             src={photo.url}
-            imageCropAspectRatio={1}
+            class="max-w-full"
           />
         </div>
         <div
@@ -59,6 +108,7 @@
           </div>
           <div class="flex-1" />
           <button
+            on:click={handleCropClick}
             type="button"
             class="inline-flex justify-center items-center px-4 py-2 border border-blue-600 text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >Update existing image</button
